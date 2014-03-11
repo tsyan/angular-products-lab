@@ -2,9 +2,9 @@
 // It's used by controllers to get remote data
 angular.module('StoreFront').factory('productData',['$http', function($http){
 
-    // Init the product data with heading
+    // Init a the product data with heading
     var productData = {products: [
-        { name: "Loading Products", description: "", price: '' }
+        { name: "Loading Products",description: "",price: '' }
     ]};
 
     // method to get all the products.
@@ -20,4 +20,16 @@ angular.module('StoreFront').factory('productData',['$http', function($http){
     };
     // return the productData
     return productData;
+
+    // method to get one product by id.
+    productData.loadProduct = function(productId, callback){
+        $http.get('products/' + productId + '.json')
+            .success(function(data){
+                callback(data)
+                console.log('Successfully loaded product ' + productId);
+            })
+            .error(function(){
+                console.log('Failed to load product ' + productId);
+            });
+    }; // end of productData method
 }]);
