@@ -24,3 +24,6 @@ StoreFront.config(['$routeProvider', function($routeProvider){
   });
 }]);
 
+StoreFront.config(['$httpProvider',function(provider) {
+    provider.defaults.headers.common['X-CSRF-Token'] = document.querySelector("meta[name=csrf-token]").getAttribute('content');
+}]);
